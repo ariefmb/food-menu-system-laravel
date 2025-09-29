@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MenuController extends Controller
 {
@@ -20,7 +21,7 @@ class MenuController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validate = $request->validate([
             'nama_menu' => 'required|string|max:255',
             'jenis_menu' => 'required|string|max:255',
             'price' => 'required|numeric',
@@ -28,7 +29,12 @@ class MenuController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        Menu::create($request->all());
+        if ($request->hasFile('image_url')) {
+            $validate['image_url'] = $request->file('image_url')->store('menu_images', 'public');
+        }
+
+        Menu::create($validate);
+
         return redirect()->route('menus.index')->with('success', 'Menu berhasil dibuat!');
     }
 
@@ -39,7 +45,7 @@ class MenuController extends Controller
 
     public function update(Request $request, Menu $menu)
     {
-        $request->validate([
+        $validate = $request->validate([
             'nama_menu' => 'required|string|max:255',
             'jenis_menu' => 'required|string|max:255',
             'price' => 'required|numeric',
@@ -47,13 +53,26 @@ class MenuController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        $menu->update($request->all());
+        if ($request->hasFile('image_url')) {
+            if ($menu->image_url) {
+                Storage::disk('public')->delete($menu->image_url);
+            }
+            $validate['image_url'] = $request->file('image_url')->store('menus', 'public');
+        }
+
+        $menu->update($validate);
+
         return redirect()->route('menus.index')->with('success', 'Menu berhasil diupdate!');
     }
 
     public function destroy(Menu $menu)
     {
+        if ($menu->image_url) {
+            Storage::disk('public')->delete($menu->image_url);
+        }
+
         $menu->delete();
+
         return redirect()->route('menus.index')->with('success', 'Menu berhasil dihapus!');
     }
 }
