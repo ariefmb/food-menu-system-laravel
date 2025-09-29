@@ -1,5 +1,6 @@
+<div style="display:flex; align-items:center; justify-content:center; gap:10px;"><img src="public/images/logo.png" alt="logo" width="100" /><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="300" alt="Laravel Logo"></div>
 
-# <div style="display:flex; align-items:center; justify-content:center; gap:10px;"><img src="public/images/logo.png" alt="logo" width="100" style="margin-right:30px" />Food Menu System (Laravel)<img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="300" alt="Laravel Logo"></div>
+<p style="text-align:center; font-size:32px; font-weight:bold;">Food Menu System (Laravel)</p>
 
 ![Laravel](https://img.shields.io/badge/Laravel-10.x-red?logo=laravel)  ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-38B2AC?logo=tailwind-css) ![MySQL](https://img.shields.io/badge/Database-MySQL-blue?logo=mysql)
 
